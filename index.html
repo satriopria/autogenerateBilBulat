@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HOME</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <center>
+    <h1>BUAT SOAL OPERASI BILANGAN BULAT OTOMATIS</h1>
+  </center>
+  <div id="notifikasi"></div>
+  <div class="table">
+    <div class="row">
+      <div class="column">
+        <fieldset>
+          <!-- Jumlah Soal -->
+          <legend>Jumlah Soal</legend>
+          <input id="jmlSoal" type="number" min="0" step="1" placeholder="masukkan angka">
+        </fieldset>
+        <fieldset>
+          <!-- Maksimal Angka pada Soal -->
+          <legend>Maksimal Angka pada Soal</legend>
+          <input id="pjgSoal" type="number" min="0" step="1" placeholder="masukkan angka">
+        </fieldset>
+        <fieldset>
+          <!--Macam-Macam Operasi-->
+          <legend>Macam-Macam Operasi</legend>
+          <input type="checkbox" name="operasi" id="tambah" value="+">
+          <label for="tambah">penjumlahan (+)</label><br>
+          <input type="checkbox" name="operasi" id="kurang" value="-">
+          <label for="kurang">pengurangan (-)</label><br>
+          <input type="checkbox" name="operasi" id="kali" value="*">
+          <label for="kali">perkalian (x)</label><br>
+          <input type="checkbox" name="operasi" id="bagi" value="/">
+          <label for="bagi">pembagian (:)</label>
+        </fieldset>
+      </div>
+      <div class="column">
+        <fieldset>
+          <!--Apakah Mengizinkan Terdapat Bilangan Negatif ?-->
+          <legend>Apakah Mengizinkan Terdapat Bilangan Negatif ?</legend>
+          <fieldset>
+            <legend>di Soal</legend>
+            <input type="radio" name="bolehSoalNegatif" id="y-neg-soal" value="1">
+            <label for="y-neg-soal">Ya, boleh</label><br>
+            <input type="radio" name="bolehSoalNegatif" id="n-neg-soal" value="0">
+            <label for="n-neg-soal">Tidak, tidak perlu</label>
+          </fieldset>
+          <fieldset>
+            <legend>di Jawaban</legend>
+            <input type="radio" name="bolehJawabanNegatif" id="y-neg-jaw" value="1">
+            <label for="y-neg-jaw">Ya, boleh</label><br>
+            <input type="radio" name="bolehJawabanNegatif" id="n-neg-jaw" value="0">
+            <label for="n-neg-jaw">Tidak, tidak perlu</label>
+          </fieldset>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+  <center>
+    <button onclick="clicked()"><span>Buat Sekarang</span></button>
+  </center>
+  <script src="./script.js"></script>
+  <script>
+    const clicked = _ => {
+      const jmlSoal = document.getElementById("jmlSoal");
+      const pjgSoal = document.getElementById("pjgSoal");
+      const operasi = document.querySelectorAll("input[name='operasi']:checked");
+      const soalNeg = document.querySelector("input[name='bolehSoalNegatif']:checked");
+      const jawNeg = document.querySelector("input[name='bolehJawabanNegatif']:checked");
+
+      let hasilValid = validasi(jmlSoal, pjgSoal, operasi, soalNeg, jawNeg);
+      let hasilGenerate, diprint = "";
+
+      if (hasilValid != 0) {
+        document.body.innerHTML = "";
+        hasilGenerate = generate.apply(this, hasilValid)
+        for(i in hasilGenerate["soal"]) diprint += `(${(parseInt(i)+1)}) &ensp; ${hasilGenerate["soal"][i]}<br>`;
+        document.body.innerHTML = diprint;
+        document.body.innerHTML += `<br><a href="" onClick="window.location.reload()">Kembali</a><br><br><a href="" onClick="">Lihat Kunci Jawaban</a>`;
+        for(i in hasilGenerate["jawab"]) document.body.innerHTML += `<div style="display: none">(${(parseInt(i)+1)}) &ensp; ${hasilGenerate["jawab"][i]}</div>`;
+        // console.log(diprint)
+      }
+    }
+  </script>
+</body>
+
+</html>
