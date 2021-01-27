@@ -81,7 +81,7 @@
         hasilGenerate = generate.apply(this, hasilValid)
         for(i in hasilGenerate["soal"]) diprint += `(${(parseInt(i)+1)}) &ensp; ${hasilGenerate["soal"][i]}<br>`;
         document.body.innerHTML = diprint;
-        document.body.innerHTML += `<br><a href="" onClick="window.location.reload()">Kembali</a><br><br><a href="" onClick="document.getElementById('jwb').style.display = 'block';">Lihat Kunci Jawaban</a>`;
+        document.body.innerHTML += `<br><a href="" onClick="window.location.reload()">Kembali</a><br><br><a href="#" onClick="document.getElementById('jwb').style.display = 'block';">Lihat Kunci Jawaban</a>`;
         for(i in hasilGenerate["jawab"]) document.body.innerHTML += `<div id="jwb" style="display: none">(${(parseInt(i)+1)}) &ensp; ${hasilGenerate["jawab"][i]}</div>`;
         // console.log(diprint)
       }
